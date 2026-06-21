@@ -13,14 +13,28 @@ const containerVariants = {
   },
 };
 
+const easeOutCubicBezier: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+
+const tweenTransition: { type: "tween"; duration: number; ease: [number, number, number, number] } = {
+  type: "tween",
+  duration: 0.5,
+  ease: easeOutCubicBezier,
+};
+
+const tweenSlideTransition: { type: "tween"; duration: number; ease: [number, number, number, number] } = {
+  type: "tween",
+  duration: 0.6,
+  ease: easeOutCubicBezier,
+};
+
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "tween" as const, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const } },
+  visible: { opacity: 1, y: 0, transition: tweenTransition },
 };
 
 const slideVariants = {
   hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { type: "tween" as const, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const } },
+  visible: { opacity: 1, x: 0, transition: tweenSlideTransition },
 };
 
 export default function AIShowcase() {
@@ -160,7 +174,7 @@ export default function AIShowcase() {
                             initial={{ strokeDashoffset: 251.2 }}
                             whileInView={{ strokeDashoffset: 32.6 }}
                             viewport={{ once: true }}
-                            transition={{ type: "tween" as const, duration: 1.5, ease: [0.25, 0.1, 0.25, 1] as const }}
+                            transition={{ duration: 1.5, ease: easeOutCubicBezier }}
                           />
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-white">87%</span>
