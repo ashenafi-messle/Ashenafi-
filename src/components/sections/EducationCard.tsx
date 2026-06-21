@@ -16,7 +16,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 const cardVariants = {
   hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const } },
 };
 
 interface EducationCardProps {

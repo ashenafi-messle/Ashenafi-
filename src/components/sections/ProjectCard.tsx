@@ -6,7 +6,7 @@ import { ArrowUpRight, GitBranch } from "lucide-react";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] as const } },
 };
 
 export default function ProjectCard({ project }: { project: Project }) {
@@ -73,7 +73,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                     className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition duration-200 hover:border-cyan-300/40 hover:bg-cyan-500/20"
                   >
                     <GitBranch className="h-4 w-4" />
-                    {project.github.length > 1 ? `Repo ${idx + 1}` : "GitHub"}
+                    {(project.github as string[]).length > 1 ? `Repo ${idx + 1}` : "GitHub"}
                   </a>
                 ))
               ) : (
