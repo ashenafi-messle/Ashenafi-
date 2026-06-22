@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Transition, Variants } from "framer-motion";
+import { motion, type Transition, type Variants } from "framer-motion";
 import { TrendingUp, Brain, Zap, BarChart3 } from "lucide-react";
 
 const containerVariants: Variants = {
@@ -15,17 +15,17 @@ const containerVariants: Variants = {
 
 const easeOutCubicBezier = [0.25, 0.1, 0.25, 1] as const;
 
-const tweenTransition: Transition = {
+const tweenTransition = {
   type: "tween",
   duration: 0.5,
   ease: easeOutCubicBezier,
-};
+} satisfies Transition;
 
-const tweenSlideTransition: Transition = {
+const tweenSlideTransition = {
   type: "tween",
   duration: 0.6,
   ease: easeOutCubicBezier,
-};
+} satisfies Transition;
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
