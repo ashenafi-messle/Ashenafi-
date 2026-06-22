@@ -1,41 +1,9 @@
 "use client";
 
-import { motion, type Transition, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { TrendingUp, Brain, Zap, BarChart3 } from "lucide-react";
-
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const easeOutCubicBezier = [0.25, 0.1, 0.25, 1] as const;
-
-const tweenTransition = {
-  type: "tween",
-  duration: 0.5,
-  ease: easeOutCubicBezier,
-} satisfies Transition;
-
-const tweenSlideTransition = {
-  type: "tween",
-  duration: 0.6,
-  ease: easeOutCubicBezier,
-} satisfies Transition;
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: tweenTransition },
-};
-
-const slideVariants: Variants = {
-  hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: tweenSlideTransition },
-};
+// Replaced variants and shared transition objects with inline animation props
+// to avoid TypeScript variant/transition typing incompatibilities during build.
 
 export default function AIShowcase() {
   return (
@@ -43,7 +11,13 @@ export default function AIShowcase() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,_rgba(139,92,246,0.12),_transparent_50%)]" />
 
       <div className="mx-auto max-w-7xl">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={itemVariants} className="mb-16 max-w-3xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 max-w-3xl"
+        >
           <p className="mb-3 inline-flex rounded-full border border-violet-400/20 bg-violet-500/10 px-3 py-1 text-sm font-semibold uppercase tracking-[0.35em] text-violet-200">
             AI Innovation
           </p>
@@ -55,14 +29,14 @@ export default function AIShowcase() {
           </p>
         </motion.div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={containerVariants}
-          className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start"
-        >
-          <motion.div variants={itemVariants} className="space-y-6">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-6"
+          >
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <div className="rounded-full border border-cyan-400/20 bg-cyan-500/10 p-3 text-cyan-300">
@@ -106,7 +80,13 @@ export default function AIShowcase() {
             </div>
           </motion.div>
 
-          <motion.div variants={slideVariants} className="space-y-4">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4"
+          >
             <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-[0_20px_100px_rgba(15,23,42,0.4)] sm:p-8">
               <div className="grid gap-4">
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -174,7 +154,7 @@ export default function AIShowcase() {
                             initial={{ strokeDashoffset: 251.2 }}
                             whileInView={{ strokeDashoffset: 32.6 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 1.5, ease: easeOutCubicBezier }}
+                            transition={{ duration: 1.5 }}
                           />
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-white">87%</span>
@@ -196,7 +176,7 @@ export default function AIShowcase() {
                           initial={{ width: 0 }}
                           whileInView={{ width: "91%" }}
                           viewport={{ once: true }}
-                          transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
+                          transition={{ duration: 1.2 }}
                         />
                       </div>
                       <span className="text-white">91%</span>
@@ -211,7 +191,7 @@ export default function AIShowcase() {
                           initial={{ width: 0 }}
                           whileInView={{ width: "94%" }}
                           viewport={{ once: true }}
-                          transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const, delay: 0.1 }}
+                          transition={{ duration: 1.2, delay: 0.1 }}
                         />
                       </div>
                       <span className="text-white">94%</span>
@@ -223,7 +203,7 @@ export default function AIShowcase() {
 
             <p className="text-xs text-slate-500">*Metrics shown are based on real system data and historical predictions</p>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
